@@ -18,7 +18,10 @@ def _django_runner(request):
     if not is_configured():
         return
 
-    from django.test.simple import DjangoTestSuiteRunner
+    try:
+        from django.test.simple import DjangoTestSuiteRunner
+    except ImportError:
+        from django.test.runner import DiscoverRunner as DjangoTestSuiteRunner
 
     import django
     if hasattr(django, 'setup'):
